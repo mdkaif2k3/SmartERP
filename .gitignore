@@ -1,0 +1,30 @@
+# Dependencies
+client/node_modules/
+server/node_modules/
+
+# Environment files
+client/.env
+client/.env.local
+server/.env
+
+# Next.js
+client/.next/
+client/out/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build files
+dist/
+build/
+
+# Prisma generated files (optional)
+server/generated/
+
+# VS Code settings (optional)
+.vscode/
