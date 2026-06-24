@@ -1,7 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
   provider = "prisma-client-js"
@@ -10,4 +6,189 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  password  String
+
+  companies Company[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Company {
+  id              String    @id @default(uuid())
+
+  name            String
+  gstNo           String?
+  address         String?
+  financialYear   String?
+  state           String?
+
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
+
+  groups          Group[]
+  units           Unit[]
+  customers       Customer[]
+  suppliers       Supplier[]
+  stockItems      StockItem[]
+
+  purchaseVouchers PurchaseVoucher[]
+  salesVouchers    SalesVoucher[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Group {
+  id          String   @id @default(uuid())
+
+  name        String
+
+  type        String
+
+  companyId   String
+  company     Company @relation(fields: [companyId], references: [id])
+
+  createdAt   DateTime @default(now())
+}
+
+model Unit {
+  id          String   @id @default(uuid())
+
+  name        String
+  symbol      String
+
+  companyId   String
+  company     Company @relation(fields: [companyId], references: [id])
+
+  stockItems  StockItem[]
+
+  createdAt   DateTime @default(now())
+}
+
+model Customer {
+  id          String   @id @default(uuid())
+
+  name        String
+  mobile      String?
+  address     String?
+  balance     Decimal  @default(0)
+
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id])
+
+  salesVouchers SalesVoucher[]
+
+  createdAt   DateTime @default(now())
+}
+
+model Supplier {
+  id          String   @id @default(uuid())
+
+  name        String
+  mobile      String?
+  address     String?
+  balance     Decimal  @default(0)
+
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id])
+
+  purchaseVouchers PurchaseVoucher[]
+
+  createdAt   DateTime @default(now())
+}
+
+model StockItem {
+  id              String   @id @default(uuid())
+
+  name            String
+  sku             String   @unique
+
+  purchasePrice   Decimal
+  salePrice       Decimal
+
+  gstPercentage   Decimal
+
+  quantity        Decimal  @default(0)
+
+  companyId       String
+  company         Company  @relation(fields: [companyId], references: [id])
+
+  unitId          String
+  unit            Unit     @relation(fields: [unitId], references: [id])
+
+  purchaseItems   PurchaseItem[]
+  salesItems      SalesItem[]
+
+  createdAt       DateTime @default(now())
+}
+
+model PurchaseVoucher {
+  id            String   @id @default(uuid())
+
+  voucherNo     String
+
+  totalAmount   Decimal
+
+  supplierId    String
+  supplier      Supplier @relation(fields: [supplierId], references: [id])
+
+  companyId     String
+  company       Company @relation(fields: [companyId], references: [id])
+
+  items         PurchaseItem[]
+
+  createdAt     DateTime @default(now())
+}
+
+model PurchaseItem {
+  id            String   @id @default(uuid())
+
+  qty           Decimal
+  rate          Decimal
+  amount        Decimal
+
+  purchaseId    String
+  purchase      PurchaseVoucher @relation(fields: [purchaseId], references: [id])
+
+  itemId        String
+  item          StockItem @relation(fields: [itemId], references: [id])
+}
+
+model SalesVoucher {
+  id            String   @id @default(uuid())
+
+  voucherNo     String
+
+  totalAmount   Decimal
+
+  customerId    String
+  customer      Customer @relation(fields: [customerId], references: [id])
+
+  companyId     String
+  company       Company @relation(fields: [companyId], references: [id])
+
+  items         SalesItem[]
+
+  createdAt     DateTime @default(now())
+}
+
+model SalesItem {
+  id            String   @id @default(uuid())
+
+  qty           Decimal
+  rate          Decimal
+  amount        Decimal
+
+  salesId       String
+  sales         SalesVoucher @relation(fields: [salesId], references: [id])
+
+  itemId        String
+  item          StockItem @relation(fields: [itemId], references: [id])
 }
