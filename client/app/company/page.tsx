@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { setCompanyId } from "@/utils/company";
+import { setCompany } from "@/utils/company";
 import axios from "axios";
 
 import { getCompanies } from "@/services/companyService";
@@ -23,8 +23,8 @@ export default function CompanyPage() {
     const [companies, setCompanies] = useState<Company[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const handleSelectCompany = (companyId: string) => {
-        setCompanyId(companyId);
+    const handleSelectCompany = (company: Company) => {
+        setCompany(company.id, company.name);
         router.push("/dashboard");
     };
 

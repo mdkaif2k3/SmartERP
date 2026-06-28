@@ -7,7 +7,7 @@ interface Company {
 
 interface CompanyCardProps {
     company: Company;
-    onSelect: (id: string) => void;
+    onSelect: (company: Company) => void;
 }
 
 export default function CompanyCard({
@@ -30,10 +30,7 @@ export default function CompanyCard({
                 State: {company.state ?? "N/A"}
             </p>
 
-            <button
-                onClick={() => onSelect(company.id)}
-                className="mt-6 w-full rounded-lg bg-blue-600 py-2 text-white hover:bg-blue-700"
-            >
+            <button onClick={() => onSelect(company)} className="mt-6 w-full rounded-lg bg-blue-600 py-2 text-white hover:bg-blue-700">
                 Select Company
             </button>
 
