@@ -7,9 +7,11 @@ interface Customer {
 
 interface CustomerTableProps {
     customers: Customer[];
+    onDeleteCustomer: (id: string) => void;
+    onEditCustomer: (customer: Customer) => void;
 }
 
-export default function CustomerTable({ customers, }: CustomerTableProps) {
+export default function CustomerTable({ customers, onDeleteCustomer, onEditCustomer }: CustomerTableProps) {
 
     return (
         <div className="bg-white rounded-xl shadow-md p-6">
@@ -40,10 +42,10 @@ export default function CustomerTable({ customers, }: CustomerTableProps) {
                                 {customer.address || "-"}
                             </td>
                             <td className="text-center space-x-2">
-                                <button className="bg-yellow-500 text-white px-3 py-1 rounded">
+                                <button onClick={() => onEditCustomer(customer)} className="bg-yellow-500 text-white px-3 py-1 rounded">
                                     Edit
                                 </button>
-                                <button className="bg-red-600 text-white px-3 py-1 rounded">
+                                <button onClick={() => onDeleteCustomer(customer.id)}className="bg-red-600 text-white px-3 py-1 rounded">
                                     Delete
                                 </button>
                             </td>
