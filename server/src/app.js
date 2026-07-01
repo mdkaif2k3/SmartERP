@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import companyRoutes from "./routes/companyRoutes.js";
 import customerRoutes from "./routes/customerRoutes.js";
+import supplierRoutes from "./routes/supplierRoutes.js";
 
 dotenv.config()
 
@@ -16,10 +17,9 @@ app.use(cors({
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
-
 app.use("/api/company", companyRoutes);
-
 app.use("/api/customer", customerRoutes);
+app.use("/api/supplier", supplierRoutes);
 
 app.get("/", (req, res) => {
   res.send("SmartERP API Running");
