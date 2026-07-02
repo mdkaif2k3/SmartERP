@@ -7,6 +7,7 @@ import customerRoutes from "./routes/customerRoutes.js";
 import supplierRoutes from "./routes/supplierRoutes.js";
 import stockRoutes from "./routes/stockRoutes.js";
 import unitRoutes from "./routes/unitRoutes.js";
+import purchaseVoucherRoutes from "./routes/purchaseVoucherRoutes.js";
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use("/api/customer", customerRoutes);
 app.use("/api/supplier", supplierRoutes);
 app.use("/api/stock", stockRoutes);
 app.use("/api/unit", unitRoutes);
+app.use("/api/purchase", purchaseVoucherRoutes);
 
 app.get("/", (req, res) => {
   res.send("SmartERP API Running");
