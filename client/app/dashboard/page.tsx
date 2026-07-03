@@ -1,13 +1,129 @@
 "use client";
 
-import DashboardHeader from "@/components/Dashboard/DashboardHeader";
-import ModuleGrid from "@/components/Dashboard/ModuleGrid";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { getDashboardData } from "@/services/dashboardService";
+
+interface LowStockItem {
+    name: string;
+    quantity: number;
+}
+
+interface DashboardData {
+    customerCount: number;
+    supplierCount: number;
+    stockItemCount: number;
+    purchaseCount: number;
+    salesCount: number;
+    purchaseTotal: number;
+    salesTotal: number;
+    inventoryValue: number;
+    lowStock: LowStockItem[];
+}
 
 export default function DashboardPage() {
+
+    const [dashboard, setDashboard] =
+        useState<DashboardData | null>(null);
+
+    useEffect(() => {
+        fetchDashboard();
+    }, []);
+
+    const fetchDashboard = async () => {
+        try {
+            const response = await getDashboardData();
+            setDashboard(response.data);
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                alert(error.response?.data.message);
+            }
+        }
+    };
+
+    if (!dashboard) {
+        return (
+            <div className="p-10">
+                Loading...
+            </div>
+        );
+    }
+
     return (
         <main className="min-h-screen bg-gray-100 p-10">
-            <DashboardHeader />
-            <ModuleGrid />
+            <h1 className="text-4xl font-bold mb-8">
+                Dashboard
+            </h1>
+            <div className="grid grid-cols-3 gap-6">
+                <StatCard title="Customers" value={dashboard.customerCount} />
+                <StatCard title="Suppliers" value={dashboard.supplierCount} />
+                <StatCard title="Stock Items" value={dashboard.stockItemCount} />
+                <StatCard title="Purchases" value={dashboard.purchaseCount} />
+                <StatCard title="Sales" value={dashboard.salesCount} />
+                <StatCard title="Inventory Value" value={`₹ ${dashboard.inventoryValue}`} />
+                <StatCard title="Purchase Total" value={`₹ ${dashboard.purchaseTotal}`} />
+                <StatCard title="Sales Total" value={`₹ ${dashboard.salesTotal}`} />
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 mt-10">
+                <h2 className="text-2xl font-semibold mb-4">
+                    Low Stock Items
+                </h2>
+                {
+                    dashboard.lowStock.length === 0 ?
+                        (
+                            <p>No low stock items 🎉</p>
+                        )
+                        :
+                        (
+                            <table className="w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="text-left py-2">
+                                            Item
+                                        </th>
+                                        <th className="text-left py-2">
+                                            Quantity
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        dashboard.lowStock.map((item) => (
+                                            <tr key={item.name}>
+                                                <td className="py-2">
+                                                    {item.name}
+                                                </td>
+                                                <td className="py-2">
+                                                    {item.quantity}
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                        )
+                }
+            </div>
         </main>
+    );
+}
+
+interface StatCardProps {
+    title: string;
+    value: string | number;
+}
+
+function StatCard({ title, value, }: StatCardProps) {
+
+    return (
+        <div className="bg-white rounded-xl shadow-md p-6">
+            <h2 className="text-gray-500 text-lg">
+                {title}
+            </h2>
+            <p className="text-3xl font-bold mt-2">
+                {value}
+            </p>
+        </div>
     );
 }
