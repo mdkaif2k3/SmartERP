@@ -56,29 +56,54 @@ export default function PurchaseForm({ suppliers, stockItems, onCreatePurchase }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-md p-6 mb-8">
-            <h2 className="text-2xl font-semibold mb-6">
-                Purchase Voucher
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-                <select value={supplierId} onChange={(e) => setSupplierId(e.target.value)} className="border rounded-lg p-3">
-                    {suppliers.map((supplier) => (
-                        <option key={supplier.id} value={supplier.id}>
-                            {supplier.name}
-                        </option>
-                    ))}
-                </select>
-                <select value={itemId} onChange={(e) => setItemId(e.target.value)} className="border rounded-lg p-3">
-                    {stockItems.map((item) => (
-                        <option key={item.id} value={item.id}>
-                            {item.name}
-                        </option>
-                    ))}
-                </select>
-                <input type="number" placeholder="Quantity" value={qty} onChange={(e) => setQty(Number(e.target.value))} className="border rounded-lg p-3" />
-                <input type="number" placeholder="Rate" value={rate} onChange={(e) => setRate(Number(e.target.value))} className="border rounded-lg p-3" />
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 mb-8">
+            <div className="mb-4">
+                <h2 className="text-3xl font-bold text-slate-800">
+                    Purchase Voucher
+                </h2>
+                <p className="text-slate-500 mt-2">
+                    Add Purchase Voucher Details
+                </p>
             </div>
-            <button type="submit" className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+            <div className="grid grid-cols-2 gap-4">
+                <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                        Supplier <span className="text-red-500">*</span>
+                    </label>
+                    <select value={supplierId} onChange={(e) => setSupplierId(e.target.value)} className="w-full rounded-xl border border-slate-300 px-4 py-3 transition outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
+                        {suppliers.map((supplier) => (
+                            <option key={supplier.id} value={supplier.id}>
+                                {supplier.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                        Item <span className="text-red-500">*</span>
+                    </label>
+                    <select value={itemId} onChange={(e) => setItemId(e.target.value)} className="w-full rounded-xl border border-slate-300 px-4 py-3 transition outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
+                        {stockItems.map((item) => (
+                            <option key={item.id} value={item.id}>
+                                {item.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                        Quantity <span className="text-red-500">*</span>
+                    </label>
+                    <input type="number" placeholder="Quantity" value={qty} onChange={(e) => setQty(Number(e.target.value))} className="w-full rounded-xl border border-slate-300 px-4 py-3 transition outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100" />
+                </div>
+                <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                        Rate <span className="text-red-500">*</span>
+                    </label>
+                    <input type="number" placeholder="Rate" value={rate} onChange={(e) => setRate(Number(e.target.value))} className="w-full rounded-xl border border-slate-300 px-4 py-3 transition outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100" />
+                </div>
+            </div>
+            <button type="submit" className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700">
                 Save Purchase
             </button>
         </form>

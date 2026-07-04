@@ -9,7 +9,7 @@ export default function Sidebar() {
         <aside className="w-72 h-screen bg-white shadow-xl p-6 flex flex-col justify-between sticky top-0">
             <div>
                 <h1 className="text-3xl font-bold text-blue-600 mb-8">
-                    SmartERP
+                    sERPy
                 </h1>
                 <div className="space-y-2">
                     <SidebarItem title="Dashboard" href="/dashboard" icon={LayoutDashboard} />

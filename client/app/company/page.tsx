@@ -55,7 +55,7 @@ export default function CompanyPage() {
     }
 
     return (
-        <main className="min-h-screen bg-gray-100 p-10">
+        <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.18),transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.12),transparent_35%),linear-gradient(to_bottom_right,#f8fbff,#eef6ff,#e7f2ff)] p-10">
             <div className="mb-10">
                 <h1 className="text-4xl font-bold">
                     Welcome Back 👋
@@ -67,13 +67,10 @@ export default function CompanyPage() {
             {
                 companies.length === 0 ? (
                     <div className="bg-white rounded-2xl shadow-lg p-10 text-center">
-                        <h2 className="text-2xl font-bold mb-3">
-                            Welcome to SmartERP 👋
-                        </h2>
                         <p className="text-gray-600 mb-6">
                             You haven't created any companies yet.
                         </p>
-                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition" onClick={() => router.push("/company/create")}>
+                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition" onClick={() => setShowCreateModal(true)}>
                             Create Your First Company
                         </button>
                     </div>
@@ -86,7 +83,7 @@ export default function CompanyPage() {
                 )
             }
             {
-                companies.length < 5 && (
+                companies.length < 5 || companies.length == 0 && (
                     <div className="mt-8">
                         <button onClick={() => setShowCreateModal(true)} className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition">
                             + Create New Company

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getDashboardData } from "@/services/dashboardService";
 import AppLayout from "@/components/Layout/AppLayout";
-import NavigationCard from "@/components/Dashboard/NavigationCard";
+import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 
 interface LowStockItem {
     name: string;
@@ -53,32 +53,21 @@ export default function DashboardPage() {
 
     return (
         <AppLayout>
-            <h1 className="text-4xl font-bold mb-8">
-                Dashboard
-            </h1>
-            <h2 className="text-2xl font-semibold mb-4">
-                Quick Access
-            </h2>
-            <div className="grid grid-cols-3 gap-6 mb-10">
-                <NavigationCard title="Customers" href="/customers" />
-                <NavigationCard title="Suppliers" href="/suppliers" />
-                <NavigationCard title="Stock" href="/stock" />
-                <NavigationCard title="Purchases" href="/purchase" />
-                <NavigationCard title="Sales" href="/sales" />
-                <NavigationCard title="Reports" href="/reports" />
+            <div className="mb-10">
+                <DashboardHeader />
             </div>
-            <div className="grid grid-cols-3 gap-6">
-                <StatCard title="Customers" value={dashboard.customerCount} />
-                <StatCard title="Suppliers" value={dashboard.supplierCount} />
-                <StatCard title="Stock Items" value={dashboard.stockItemCount} />
-                <StatCard title="Purchases" value={dashboard.purchaseCount} />
-                <StatCard title="Sales" value={dashboard.salesCount} />
-                <StatCard title="Inventory Value" value={`₹ ${dashboard.inventoryValue}`} />
-                <StatCard title="Purchase Total" value={`₹ ${dashboard.purchaseTotal}`} />
-                <StatCard title="Sales Total" value={`₹ ${dashboard.salesTotal}`} />
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                <StatCard title="Customers" value={dashboard.customerCount} color="bg-blue-600" />
+                <StatCard title="Suppliers" value={dashboard.supplierCount} color="bg-green-600" />
+                <StatCard title="Stock Items" value={dashboard.stockItemCount} color="bg-purple-600" />
+                <StatCard title="Purchases" value={dashboard.purchaseCount} color="bg-orange-500" />
+                <StatCard title="Sales" value={dashboard.salesCount} color="bg-pink-600" />
+                <StatCard title="Inventory Value" value={`₹ ${dashboard.inventoryValue}`} color="bg-indigo-600" />
+                <StatCard title="Purchase Total" value={`₹ ${dashboard.purchaseTotal}`} color="bg-cyan-600" />
+                <StatCard title="Sales Total" value={`₹ ${dashboard.salesTotal}`} color="bg-emerald-600" />
             </div>
 
-            <div className="bg-white rounded-xl shadow-md p-6 mt-10">
+            <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 mt-10 overflow-hidden">
                 <h2 className="text-2xl font-semibold mb-4">
                     Low Stock Items
                 </h2>
@@ -125,16 +114,17 @@ export default function DashboardPage() {
 interface StatCardProps {
     title: string;
     value: string | number;
+    color: string;
 }
 
-function StatCard({ title, value, }: StatCardProps) {
+function StatCard({ title, value, color }: StatCardProps) {
 
     return (
-        <div className="bg-white rounded-xl shadow-md p-6">
-            <h2 className="text-gray-500 text-lg">
+        <div className={`rounded-2xl shadow-xl shadow-blue-100/60 border border-slate-200 p-6 ${color}`}>
+            <h2 className="text-white/80 text-sm uppercase tracking-wider">
                 {title}
             </h2>
-            <p className="text-3xl font-bold mt-2">
+            <p className="text-4xl font-bold text-white mt-4">
                 {value}
             </p>
         </div>

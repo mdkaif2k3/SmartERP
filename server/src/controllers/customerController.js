@@ -24,6 +24,12 @@ export const createCustomerController = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
+        if (error.code === "P2003" || error.message?.includes("foreign key constraint")) {
+            return res.status(400).json({
+                success: false,
+                message: "Cannot delete this customer because it has sales records."
+            });
+        }
         return res.status(500).json({
             success: false,
             message: "Internal Server Error"
