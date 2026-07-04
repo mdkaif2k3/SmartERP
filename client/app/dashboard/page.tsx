@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getDashboardData } from "@/services/dashboardService";
+import NavigationCard from "@/components/Dashboard/NavigationCard";
 
 interface LowStockItem {
     name: string;
@@ -54,6 +55,17 @@ export default function DashboardPage() {
             <h1 className="text-4xl font-bold mb-8">
                 Dashboard
             </h1>
+            <h2 className="text-2xl font-semibold mb-4">
+                Quick Access
+            </h2>
+            <div className="grid grid-cols-3 gap-6 mb-10">
+                <NavigationCard title="Company" href="/company" />
+                <NavigationCard title="Customers" href="/customers" />
+                <NavigationCard title="Suppliers" href="/suppliers" />
+                <NavigationCard title="Stock" href="/stock" />
+                <NavigationCard title="Purchases" href="/purchase" />
+                <NavigationCard title="Sales" href="/sales" />
+            </div>
             <div className="grid grid-cols-3 gap-6">
                 <StatCard title="Customers" value={dashboard.customerCount} />
                 <StatCard title="Suppliers" value={dashboard.supplierCount} />

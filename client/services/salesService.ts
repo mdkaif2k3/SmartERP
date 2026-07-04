@@ -6,7 +6,6 @@ export const getSalesVouchers = async () => {
 };
 
 export const createSalesVoucher = async (salesData: {
-    voucherNo: string;
     customerId: string;
     itemId: string;
     qty: number;

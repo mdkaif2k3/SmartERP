@@ -17,7 +17,6 @@ interface SalesFormProps {
     stockItems: StockItem[];
 
     onCreateSales: (sales: {
-        voucherNo: string;
         customerId: string;
         itemId: string;
         qty: number;
@@ -27,7 +26,6 @@ interface SalesFormProps {
 
 export default function SalesForm({ customers, stockItems, onCreateSales }: SalesFormProps) {
 
-    const [voucherNo, setVoucherNo] = useState("");
     const [customerId, setCustomerId] = useState("");
     const [itemId, setItemId] = useState("");
     const [qty, setQty] = useState(1);
@@ -48,13 +46,11 @@ export default function SalesForm({ customers, stockItems, onCreateSales }: Sale
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onCreateSales({
-            voucherNo,
             customerId,
             itemId,
             qty,
             rate,
         });
-        setVoucherNo("");
         setQty(1);
         setRate(0);
     };
@@ -65,7 +61,6 @@ export default function SalesForm({ customers, stockItems, onCreateSales }: Sale
                 Sales Voucher
             </h2>
             <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="Voucher Number" value={voucherNo} onChange={(e) => setVoucherNo(e.target.value)} className="border rounded-lg p-3" required />
                 <select value={customerId} onChange={(e) => setCustomerId(e.target.value)} className="border rounded-lg p-3">
                     {customers.map((customer) => (
                         <option key={customer.id} value={customer.id}>

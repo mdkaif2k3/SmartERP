@@ -1,7 +1,9 @@
 import prisma from "../config/prisma.js";
+import { generateVoucherNumber } from "../utils/voucherGenerator.js";
 
 export const createSalesVoucher = async (companyId, salesData) => {
     return await prisma.$transaction(async (tx) => {
+        const voucherNo = await generateVoucherNumber(tx, "salesVoucher", "SV");
         const stockItem = await tx.stockItem.findUnique({
             where: {
                 id: salesData.itemId,
@@ -15,7 +17,7 @@ export const createSalesVoucher = async (companyId, salesData) => {
         }
         const salesVoucher = await tx.salesVoucher.create({
             data: {
-                voucherNo: salesData.voucherNo,
+                voucherNo: voucherNo,
                 totalAmount: salesData.amount,
                 customerId: salesData.customerId,
                 companyId,

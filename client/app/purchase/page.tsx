@@ -77,7 +77,6 @@ export default function PurchasePage() {
         }
     };
     const handleCreatePurchase = async (purchase: {
-        voucherNo: string;
         supplierId: string;
         itemId: string;
         qty: number;

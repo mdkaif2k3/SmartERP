@@ -17,7 +17,6 @@ interface PurchaseFormProps {
     stockItems: StockItem[];
 
     onCreatePurchase: (purchase: {
-        voucherNo: string;
         supplierId: string;
         itemId: string;
         qty: number;
@@ -27,7 +26,6 @@ interface PurchaseFormProps {
 
 export default function PurchaseForm({ suppliers, stockItems, onCreatePurchase }: PurchaseFormProps) {
 
-    const [voucherNo, setVoucherNo] = useState("");
     const [supplierId, setSupplierId] = useState("");
     const [itemId, setItemId] = useState("");
     const [qty, setQty] = useState(1);
@@ -48,13 +46,11 @@ export default function PurchaseForm({ suppliers, stockItems, onCreatePurchase }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onCreatePurchase({
-            voucherNo,
             supplierId,
             itemId,
             qty,
             rate,
         });
-        setVoucherNo("");
         setQty(1);
         setRate(0);
     };
@@ -65,7 +61,6 @@ export default function PurchaseForm({ suppliers, stockItems, onCreatePurchase }
                 Purchase Voucher
             </h2>
             <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="Voucher Number" value={voucherNo} onChange={(e) => setVoucherNo(e.target.value)} className="border rounded-lg p-3" required />
                 <select value={supplierId} onChange={(e) => setSupplierId(e.target.value)} className="border rounded-lg p-3">
                     {suppliers.map((supplier) => (
                         <option key={supplier.id} value={supplier.id}>

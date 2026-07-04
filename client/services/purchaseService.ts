@@ -6,7 +6,6 @@ export const getPurchaseVouchers = async () => {
 };
 
 export const createPurchaseVoucher = async (purchaseData: {
-    voucherNo: string;
     supplierId: string;
     itemId: string;
     qty: number;

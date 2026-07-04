@@ -2,9 +2,9 @@ import { createSalesVoucher, getSalesVouchers } from "../services/salesVoucherSe
 
 export const createSalesVoucherController = async (req, res) => {
     try {
-        const { voucherNo, customerId, itemId, qty, rate } = req.body;
+        const { customerId, itemId, qty, rate } = req.body;
 
-        if (!voucherNo || !customerId || !itemId || qty === undefined || rate === undefined) {
+        if (!customerId || !itemId || qty === undefined || rate === undefined) {
             return res.status(400).json({
                 success: false,
                 message: "Please fill all required fields.",
@@ -21,7 +21,6 @@ export const createSalesVoucherController = async (req, res) => {
         const salesVoucher = await createSalesVoucher(
             req.company.id,
             {
-                voucherNo,
                 customerId,
                 itemId,
                 qty: Number(qty),

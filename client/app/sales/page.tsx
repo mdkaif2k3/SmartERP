@@ -77,7 +77,6 @@ export default function SalesPage() {
         }
     };
     const handleCreateSales = async (sales: {
-        voucherNo: string;
         customerId: string;
         itemId: string;
         qty: number;
