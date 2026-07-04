@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getDashboardData } from "@/services/dashboardService";
+import AppLayout from "@/components/Layout/AppLayout";
 import NavigationCard from "@/components/Dashboard/NavigationCard";
 
 interface LowStockItem {
@@ -51,7 +52,7 @@ export default function DashboardPage() {
     }
 
     return (
-        <main className="min-h-screen bg-gray-100 p-10">
+        <AppLayout>
             <h1 className="text-4xl font-bold mb-8">
                 Dashboard
             </h1>
@@ -59,7 +60,6 @@ export default function DashboardPage() {
                 Quick Access
             </h2>
             <div className="grid grid-cols-3 gap-6 mb-10">
-                <NavigationCard title="Company" href="/company" />
                 <NavigationCard title="Customers" href="/customers" />
                 <NavigationCard title="Suppliers" href="/suppliers" />
                 <NavigationCard title="Stock" href="/stock" />
@@ -117,7 +117,7 @@ export default function DashboardPage() {
                         )
                 }
             </div>
-        </main>
+        </AppLayout>
     );
 }
 

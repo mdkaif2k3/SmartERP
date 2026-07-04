@@ -2,6 +2,7 @@
 
 import SupplierForm from "@/components/Supplier/SupplierForm";
 import SupplierTable from "@/components/Supplier/SupplierTable";
+import AppLayout from "@/components/Layout/AppLayout";
 import { createSupplier, getSuppliers, deleteSupplier, updateSupplier } from "@/services/supplierService";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -94,9 +95,9 @@ export default function SuppliersPage() {
     };
 
     return (
-        <main className="min-h-screen bg-gray-100 p-10">
+        <AppLayout>
             <SupplierForm onAddSupplier={handleAddSupplier} onUpdateSupplier={handleUpdateSupplier} editingSupplier={editingSupplier} onCancelEdit={handleCancelEdit} />
             <SupplierTable suppliers={suppliers} onDeleteSupplier={handleDeleteSupplier} onEditSupplier={handleEditSupplier} />
-        </main>
+        </AppLayout>
     );
 }

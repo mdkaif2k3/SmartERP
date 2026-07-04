@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import StockForm from "@/components/Stock/StockForm";
 import StockTable from "@/components/Stock/StockTable";
+import AppLayout from "@/components/Layout/AppLayout";
 import { createStockItem, getStockItems, updateStockItem, deleteStockItem } from "@/services/stockService";
 import { getUnits } from "@/services/unitService";
 
@@ -123,7 +124,7 @@ export default function StockPage() {
     };
 
     return (
-        <main className="min-h-screen bg-gray-100 p-10">
+        <AppLayout>
             <StockForm
                 units={units}
                 editingStockItem={editingStockItem}
@@ -137,6 +138,6 @@ export default function StockPage() {
                 onEditStockItem={handleEditStockItem}
                 onDeleteStockItem={handleDeleteStockItem}
             />
-        </main>
+        </AppLayout>
     );
 }

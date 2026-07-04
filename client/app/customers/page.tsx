@@ -2,6 +2,7 @@
 
 import CustomerForm from "@/components/Customer/CustomerForm";
 import CustomerTable from "@/components/Customer/CustomerTable";
+import AppLayout from "@/components/Layout/AppLayout";
 import { createCustomer, getCustomers, deleteCustomer, updateCustomer } from "@/services/customerService";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -94,9 +95,9 @@ export default function CustomersPage() {
     };
 
     return (
-        <main className="min-h-screen bg-gray-100 p-10">
+        <AppLayout>
             <CustomerForm onAddCustomer={handleAddCustomer} onUpdateCustomer={handleUpdateCustomer} editingCustomer={editingCustomer} onCancelEdit={handleCancelEdit} />
             <CustomerTable customers={customers} onDeleteCustomer={handleDeleteCustomer} onEditCustomer={handleEditCustomer} />
-        </main>
+        </AppLayout>
     );
 }

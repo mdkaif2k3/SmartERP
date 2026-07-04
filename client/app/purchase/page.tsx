@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PurchaseForm from "@/components/Purchase/PurchaseForm";
 import PurchaseTable from "@/components/Purchase/PurchaseTable";
+import AppLayout from "@/components/Layout/AppLayout";
 import { createPurchaseVoucher, getPurchaseVouchers } from "@/services/purchaseService";
 import { getSuppliers } from "@/services/supplierService";
 import { getStockItems } from "@/services/stockService";
@@ -94,7 +95,7 @@ export default function PurchasePage() {
     };
     return (
 
-        <main className="min-h-screen bg-gray-100 p-10">
+        <AppLayout>
             <PurchaseForm
                 suppliers={suppliers}
                 stockItems={stockItems}
@@ -103,6 +104,6 @@ export default function PurchasePage() {
             <PurchaseTable
                 purchaseVouchers={purchaseVouchers}
             />
-        </main>
+        </AppLayout>
     );
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import SalesForm from "@/components/Sales/SalesForm";
 import SalesTable from "@/components/Sales/SalesTable";
+import AppLayout from "@/components/Layout/AppLayout";
 import { createSalesVoucher, getSalesVouchers } from "@/services/salesService";
 import { getCustomers } from "@/services/customerService";
 import { getStockItems } from "@/services/stockService";
@@ -94,7 +95,7 @@ export default function SalesPage() {
     };
     return (
 
-        <main className="min-h-screen bg-gray-100 p-10">
+        <AppLayout>
             <SalesForm
                 customers={customers}
                 stockItems={stockItems}
@@ -103,6 +104,6 @@ export default function SalesPage() {
             <SalesTable
                 salesVouchers={salesVouchers}
             />
-        </main>
+        </AppLayout>
     );
 }
