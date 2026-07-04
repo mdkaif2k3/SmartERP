@@ -65,6 +65,7 @@ export default function DashboardPage() {
                 <NavigationCard title="Stock" href="/stock" />
                 <NavigationCard title="Purchases" href="/purchase" />
                 <NavigationCard title="Sales" href="/sales" />
+                <NavigationCard title="Reports" href="/reports" />
             </div>
             <div className="grid grid-cols-3 gap-6">
                 <StatCard title="Customers" value={dashboard.customerCount} />
